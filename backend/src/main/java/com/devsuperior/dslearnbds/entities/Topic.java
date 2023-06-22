@@ -27,11 +27,16 @@ public class Topic implements Serializable {
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
+    @ManyToOne
+    @JoinColumn(name = "reply_id")
+    private Reply answer;
 
     @ManyToMany
     @JoinTable(name = "tb_topic_likes", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> likes = new HashSet<>();
 
+    @OneToMany(mappedBy = "topic")
+    private Set<Reply> replies = new HashSet<>();
 
     public Topic() {
 
@@ -104,8 +109,20 @@ public class Topic implements Serializable {
         this.lesson = lesson;
     }
 
+    public Reply getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Reply answer) {
+        this.answer = answer;
+    }
+
     public Set<User> getLikes() {
         return likes;
+    }
+
+    public Set<Reply> getReplies() {
+        return replies;
     }
 
     @Override
