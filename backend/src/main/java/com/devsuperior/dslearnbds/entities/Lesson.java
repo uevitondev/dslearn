@@ -2,9 +2,7 @@ package com.devsuperior.dslearnbds.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -20,6 +18,9 @@ public abstract class Lesson implements Serializable {
     @ManyToOne
     @JoinColumn(name = "section_id")
     private Section section;
+
+    @OneToMany(mappedBy = "lesson")
+    private List<Deliver> deliveries = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "tb_lessons_done", joinColumns = @JoinColumn(name = "lesson_id"), inverseJoinColumns = {@JoinColumn(name = "user_id"), @JoinColumn(name = "offer_id")})
@@ -66,6 +67,10 @@ public abstract class Lesson implements Serializable {
 
     public void setSection(Section section) {
         this.section = section;
+    }
+
+    public List<Deliver> getDeliveries() {
+        return deliveries;
     }
 
     public Set<Enrollment> getEnrollmentsDone() {
