@@ -31,6 +31,5 @@ public class AuthService {
         if (!user.getId().equals(userId) && !user.hasHole("ROLE_ADMIN")) {
             throw new ForbiddenException("Access denied!");
         }
-
     }
 }
